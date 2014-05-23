@@ -17,3 +17,5 @@ modify in locol master
 
 modify in github 2014-5-23
 >>>>>>> 75cb67060436ba29c1b06cdc6610e9cbe14d4598
+
+2014-5-23:13:53 master puts AndroidGatewayServer api
