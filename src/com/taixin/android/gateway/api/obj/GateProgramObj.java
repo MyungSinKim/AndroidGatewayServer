@@ -1,4 +1,4 @@
-package com.taixin.android.gateway.api;
+package com.taixin.android.gateway.api.obj;
 
 public class GateProgramObj {
 	private String name;

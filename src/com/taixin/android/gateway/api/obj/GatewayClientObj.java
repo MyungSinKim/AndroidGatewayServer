@@ -1,4 +1,4 @@
-package com.taixin.android.gateway.api;
+package com.taixin.android.gateway.api.obj;
 
 public class GatewayClientObj {
 	private String 		ip;						/*client ip					*/
