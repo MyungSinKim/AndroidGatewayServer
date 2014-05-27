@@ -5,7 +5,20 @@ public class GatewayClientObj {
 	private int 		heartFlag;				/*client heart flag			*/
 	private int 		tunerIndex;				/*client tuner index		*/
 	private boolean 	isLiveStreaming;		/*client is liveStreaming	*/
-	private boolean 	isIdle;					/*client is idle			*/
+	private boolean 	isBusy;					/*client is busy			*/
+	
+	public GatewayClientObj(){
+		
+	}
+	
+	public GatewayClientObj(String ip, int heartFlag, int tunerIndex, boolean isLiveStreaming, boolean isBusy){
+		this.ip 			 = ip;
+		this.heartFlag 		 = heartFlag;
+		this.tunerIndex 	 = tunerIndex;
+		this.isLiveStreaming = isLiveStreaming;
+		this.isBusy			 = isBusy;
+	}
+
 	public String getIp() {
 		return ip;
 	}
@@ -30,11 +43,10 @@ public class GatewayClientObj {
 	public void setLiveStreaming(boolean isLiveStreaming) {
 		this.isLiveStreaming = isLiveStreaming;
 	}
-	public boolean isIdle() {
-		return isIdle;
+	public boolean isBusy() {
+		return isBusy;
 	}
-	public void setIdle(boolean isIdle) {
-		this.isIdle = isIdle;
+	public void setBusy(boolean isBusy) {
+		this.isBusy = isBusy;
 	}
-	
 }

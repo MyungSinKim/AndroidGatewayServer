@@ -1,6 +1,6 @@
 package com.taixin.android.gateway.api.obj;
 
-public class GateProgramObj {
+public class GatewayProgramObj {
 	private String name;
 	private int tsid;
 	private int serviceid;
