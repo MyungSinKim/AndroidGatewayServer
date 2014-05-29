@@ -11,7 +11,7 @@ public interface IGatewayClientManager {
 	
 	public boolean 	inspectClientIsConn(String ip);
 	
-	public int 	   	getTunerIndexByIp(String ip);
+	public int		getTunerIndexByIp(String ip);
 	
 	public boolean 	inspectTunerIsBusyByIp(String ip);
 	

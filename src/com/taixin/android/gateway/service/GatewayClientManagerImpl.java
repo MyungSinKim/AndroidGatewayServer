@@ -13,7 +13,7 @@ public class GatewayClientManagerImpl implements IGatewayClientManager {
 	private List<GatewayClientObj> clientsList;
 	private static final String TAG 				= "GatewayClientManagerImpl";
 	private static final int GatewayClientsNum 		= 1;
-	private int HEART_FLAG							= 6;
+	private 			 int HEART_FLAG				= 6;
 	
 	public static GatewayClientManagerImpl getInstance(){
 		if(instance == null){
@@ -42,7 +42,9 @@ public class GatewayClientManagerImpl implements IGatewayClientManager {
 	public boolean addGatewayClient(String clientIp) {
 		GLog.getInstance().d(TAG, "addGatewayClient clientsList term");
 		if(inspectClientIsConn(clientIp)){
-			/*add heart flag*/
+			for(GatewayClientObj client : clientsList){
+				client.setHeartFlag(HEART_FLAG);
+			}
 			return true;
 		}
 		for(GatewayClientObj client : clientsList){
@@ -63,6 +65,7 @@ public class GatewayClientManagerImpl implements IGatewayClientManager {
 			if(client.getIp().equals(clientIp)){
 				if(client.isLiveStreaming()){
 					/*stop live streaming*/
+					LiveStreamManagerImpl.getInstance().liveStreamStop(client.getTunerIndex());
 					client.setLiveStreaming(false);
 				}
 				client.setBusy(false);
@@ -138,7 +141,8 @@ public class GatewayClientManagerImpl implements IGatewayClientManager {
 				}
 				else{
 					if(client.isLiveStreaming()){
-						/*停止推送直播*/
+						/*stop live streaming*/
+						LiveStreamManagerImpl.getInstance().liveStreamStop(client.getTunerIndex());
 					}
 					client.setLiveStreaming(false);
 					client.setBusy(false);

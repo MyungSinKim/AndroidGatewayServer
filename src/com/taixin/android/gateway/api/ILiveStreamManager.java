@@ -6,7 +6,7 @@ public interface ILiveStreamManager {
 	
 	public boolean 	liveStreamPlay(int tunerIndex, int serviceid, int tsid);
 	
-	public String  	liveStreamGetUri();
+	public String  	liveStreamGetUri(int tunerIndex);
 	
 	public boolean 	liveStreamStop(int tunerIndex);
 }
