@@ -2,4 +2,6 @@
 
     <string name="app_name">AndroidGatewayServer</string>
 
+    <string name="receive_bootcompleted_gateway_init">receive bootcompleted!  gateway init</string>
+
 </resources>

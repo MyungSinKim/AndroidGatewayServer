@@ -1,20 +1,21 @@
 package com.taixin.android.gateway.service;
 
 import com.taixin.android.gateway.api.ILiveStreamManager;
+import com.taixin.android.gateway.log.GLog;
 
-public class LiveStreamManagerImpl implements ILiveStreamManager {
-
-	private static LiveStreamManagerImpl instance;
+public class LiveStreamManager implements ILiveStreamManager {
+	private static final String TAG 				= "--LiveStreamManager--";
+	private static LiveStreamManager instance;
 	
-	public static LiveStreamManagerImpl getInstance(){
+	public static LiveStreamManager getInstance(){
 		if(instance == null){
-			instance = new LiveStreamManagerImpl();
+			instance = new LiveStreamManager();
 		}
 		return instance;
 	}
 	@Override
 	public void liveStreamInit() {
-
+		GLog.d(TAG, "liveStreamInit");
 	}
 
 	@Override
