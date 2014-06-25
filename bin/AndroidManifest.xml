@@ -13,26 +13,14 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         
-        <receiver android:name="com.taixin.android.gateway.boot.GatewayInit">
+        <receiver android:name="com.taixin.android.gateway.boot.GatewayINIT">
         	<intent-filter>
         		<action android:name="android.intent.action.BOOT_COMPLETED"/>     
         	</intent-filter>           
   		</receiver>
   		
-        <!-- 
-        <activity 
-		    android:name="com.taixin.android.gateway.ui.liveStreamingQuitDialog"
-		    android:theme="@style/myDialogTheme">
-		</activity>
-		
-		<activity 
-		    android:name="com.taixin.android.gateway.ui.PushLiveStreamActivity">
-		</activity>
-		 -->
+        
     </application>
-    
-    <!-- <application android:name="com.taixin.android.gateway.app.GatewayApp"> 
-	</application> -->
     
 	 <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
 </manifest>
