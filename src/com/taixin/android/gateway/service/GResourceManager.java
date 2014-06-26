@@ -5,12 +5,16 @@ import android.content.Context;
 import com.taixin.android.gateway.api.IGatewayClientManager;
 import com.taixin.android.gateway.api.IResourceManager;
 import com.taixin.android.gateway.https.BroadcastTask;
+import com.taixin.android.gateway.https.HeartTask;
+import com.taixin.android.gateway.https.ProtocolTask;
 import com.taixin.android.gateway.log.GLog;
 
 public class GResourceManager implements IResourceManager {
 	private static final String TAG 				= "----GResourceManager----";
 	private IGatewayClientManager clientMgr;
 	private Thread broadTask;
+	private Thread heartTask;
+	private Thread protocolTask;
 	private Context context;
 	public GResourceManager(){
 		
@@ -20,6 +24,8 @@ public class GResourceManager implements IResourceManager {
 		this.context = context;
 		clientMgr = new  GClientManager();
 		broadTask = new Thread(new BroadcastTask());
+		heartTask = new Thread(new HeartTask());
+		protocolTask = new Thread(new ProtocolTask());
 	}
 	
 	@Override
@@ -27,6 +33,8 @@ public class GResourceManager implements IResourceManager {
 		GLog.i(TAG, "----GResourceManager, ResourceInit");
 		clientMgr.GatewayClientsInit();
 		broadTask.start();
+		protocolTask.start();
+		heartTask.start();
 	}
 
 	@Override

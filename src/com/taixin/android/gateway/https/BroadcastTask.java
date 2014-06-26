@@ -26,7 +26,7 @@ public class BroadcastTask implements Runnable {
 			while(true){
 				ds.receive(dp);
 				String strRecv = new String(dp.getData(),0,dp.getLength()) + " from "+ dp.getAddress().getHostAddress() + ":"+dp.getPort();
-				GLog.d(TAG, "UDP 收到 "+strRecv);
+				GLog.d(TAG, "BroadcastTask UDP 收到 "+strRecv);
 	
 			}
 		} catch (SocketException e) {
