@@ -11,10 +11,28 @@ import com.taixin.android.gateway.log.GLog;
 public class GClientManager implements IGatewayClientManager {
 
 	private static final String TAG 				= "----GatewayClientManager----";
-	private List<GatewayClientObj> clientList = new ArrayList<GatewayClientObj>();
+	private List<GatewayClientObj> clientList ;
+	private static GClientManager instance;
+	
+	public static GClientManager getInstance(){
+		if(instance == null){
+			instance = new GClientManager();
+		}
+		return instance;
+	}
+	
+	public List<GatewayClientObj> getClientList() {
+		return clientList;
+	}
+
+	public void setClientList(List<GatewayClientObj> clientList) {
+		this.clientList = clientList;
+	}
+
 	@Override
 	public void GatewayClientsInit() {
 		GLog.d(TAG, "GatewayClientsInit");
+		clientList = new ArrayList<GatewayClientObj>();
 		for(int i = 0; i< intHeader.MAX_CLIENTS.value(); i++){
 			GatewayClientObj client = new GatewayClientObj();
 			client.setBusy(false);

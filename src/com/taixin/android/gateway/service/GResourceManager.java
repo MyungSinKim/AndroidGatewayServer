@@ -10,11 +10,13 @@ import com.taixin.android.gateway.https.ProtocolTask;
 import com.taixin.android.gateway.log.GLog;
 
 public class GResourceManager implements IResourceManager {
+	
 	private static final String TAG 				= "----GResourceManager----";
 	private IGatewayClientManager clientMgr;
 	private Thread broadTask;
 	private Thread heartTask;
 	private Thread protocolTask;
+	private Thread heartMgrTask;
 	private Context context;
 	public GResourceManager(){
 		
@@ -22,10 +24,11 @@ public class GResourceManager implements IResourceManager {
 	
 	public GResourceManager(Context context){
 		this.context = context;
-		clientMgr = new  GClientManager();
+		clientMgr = GClientManager.getInstance();
 		broadTask = new Thread(new BroadcastTask());
 		heartTask = new Thread(new HeartTask());
 		protocolTask = new Thread(new ProtocolTask());
+		heartMgrTask = new Thread(new HeartManager());
 	}
 	
 	@Override
@@ -35,6 +38,7 @@ public class GResourceManager implements IResourceManager {
 		broadTask.start();
 		protocolTask.start();
 		heartTask.start();
+		heartMgrTask.start();
 	}
 
 	@Override
