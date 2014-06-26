@@ -5,8 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.widget.Toast;
 
-import com.taixin.android.gateway.https.BroadcastTask;
+import com.taixin.android.gateway.api.IResourceManager;
 import com.taixin.android.gateway.log.GLog;
+import com.taixin.android.gateway.service.GResourceManager;
 
 public class GatewayINIT extends BroadcastReceiver {
 	private static final String TAG 				= "----GatewayINIT----";
@@ -14,10 +15,10 @@ public class GatewayINIT extends BroadcastReceiver {
 	@Override
 	public void onReceive(Context context, Intent intent) {
 		GLog.d(TAG, "receive bootcompleted广播!");
-		Toast.makeText(context, "收到boot广播 gateway", Toast.LENGTH_LONG).show();
+		Toast.makeText(context, "gateway收到boot广播 -- 启动", Toast.LENGTH_LONG).show();
 		
-		Thread broadTask = new Thread(new BroadcastTask());
-		broadTask.start();
+		IResourceManager resourceMgr = new GResourceManager(context);
+		resourceMgr.ResourceInit();
 	}
 
 }

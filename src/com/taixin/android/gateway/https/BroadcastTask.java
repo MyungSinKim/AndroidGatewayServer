@@ -27,15 +27,7 @@ public class BroadcastTask implements Runnable {
 				ds.receive(dp);
 				String strRecv = new String(dp.getData(),0,dp.getLength()) + " from "+ dp.getAddress().getHostAddress() + ":"+dp.getPort();
 				GLog.d(TAG, "UDP 收到 "+strRecv);
-				if(strRecv.startsWith("search_stb"))
-				{
-					DatagramSocket dst = new DatagramSocket();
-					String str = "stb_is_here";
-					DatagramPacket packet2 = 
-					new DatagramPacket(str.getBytes(),str.length(),InetAddress.getByName(dp.getAddress().getHostAddress()),dp.getPort());
-					dst.send(packet2);
-					dst.close();
-				}		
+	
 			}
 		} catch (SocketException e) {
 			e.printStackTrace();

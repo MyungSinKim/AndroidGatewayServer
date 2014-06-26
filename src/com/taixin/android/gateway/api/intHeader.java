@@ -1,7 +1,7 @@
 package com.taixin.android.gateway.api;
 
 public enum intHeader {
-	MAX_CLIENTS(2),
+	MAX_CLIENTS(1),
 	BROADCAST_PORT(7583),
 	HEART_BEAT_PORT(7585),
 	UNICAST_PORT(20000),
