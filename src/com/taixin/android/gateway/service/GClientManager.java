@@ -50,7 +50,7 @@ public class GClientManager implements IGatewayClientManager {
 			stbTuners.add(i);
 		}
 		GLog.d(TAG, "clientList size = "+clientList.size());
-		
+		GLog.d(TAG, "stbTuners size = "+stbTuners.size());
 	}
 
 	@Override
