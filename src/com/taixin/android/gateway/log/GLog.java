@@ -8,7 +8,7 @@ public class GLog {
 	
 	public static void d(Object tag, Object str){
 		if(isDebug){
-			Log.d(tag.toString(), "----"+str.toString()+"----");
+			Log.d(tag.toString(), "------"+str.toString()+"------");
 		}
 	}
 	

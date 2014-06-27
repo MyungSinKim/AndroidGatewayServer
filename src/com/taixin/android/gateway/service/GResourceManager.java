@@ -3,6 +3,7 @@ package com.taixin.android.gateway.service;
 import android.content.Context;
 
 import com.taixin.android.gateway.api.IGatewayClientManager;
+import com.taixin.android.gateway.api.IMidWareManager;
 import com.taixin.android.gateway.api.IResourceManager;
 import com.taixin.android.gateway.https.BroadcastTask;
 import com.taixin.android.gateway.https.HeartTask;
@@ -13,6 +14,7 @@ public class GResourceManager implements IResourceManager {
 	
 	private static final String TAG 				= "----GResourceManager----";
 	private IGatewayClientManager clientMgr;
+	private IMidWareManager mwMgr;
 	private Thread broadTask;
 	private Thread heartTask;
 	private Thread protocolTask;
@@ -25,6 +27,7 @@ public class GResourceManager implements IResourceManager {
 	public GResourceManager(Context context){
 		this.context = context;
 		clientMgr = GClientManager.getInstance();
+		mwMgr = MidWareManager.getInstance();
 		broadTask = new Thread(new BroadcastTask());
 		heartTask = new Thread(new HeartTask());
 		protocolTask = new Thread(new ProtocolTask());
@@ -34,6 +37,7 @@ public class GResourceManager implements IResourceManager {
 	@Override
 	public void ResourceInit() {
 		GLog.i(TAG, "----GResourceManager, ResourceInit");
+		mwMgr.MidWareInit();
 		clientMgr.GatewayClientsInit();
 		broadTask.start();
 		protocolTask.start();
@@ -44,8 +48,12 @@ public class GResourceManager implements IResourceManager {
 	@Override
 	public void ResourceTerm() {
 		GLog.i(TAG, "----GResourceManager, ResourceTerm");
-		clientMgr.GatewayClientsTerm();
 		broadTask.destroy();
+		protocolTask.destroy();
+		heartTask.destroy();
+		heartMgrTask.destroy();
+		clientMgr.GatewayClientsTerm();
+		mwMgr.MideWareTerm();
 	}
 
 }
