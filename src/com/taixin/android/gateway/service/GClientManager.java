@@ -12,6 +12,7 @@ public class GClientManager implements IGatewayClientManager {
 
 	private static final String TAG 				= "----GatewayClientManager----";
 	private List<GatewayClientObj> clientList ;
+	private List<Integer> stbTuners;
 	private static GClientManager instance;
 	
 	public static GClientManager getInstance(){
@@ -29,16 +30,27 @@ public class GClientManager implements IGatewayClientManager {
 		this.clientList = clientList;
 	}
 
+	public List<Integer> getStbTuners() {
+		return stbTuners;
+	}
+
+	public void setStbTuners(List<Integer> stbTuners) {
+		this.stbTuners = stbTuners;
+	}
+
 	@Override
 	public void GatewayClientsInit() {
 		GLog.d(TAG, "GatewayClientsInit");
 		clientList = new ArrayList<GatewayClientObj>();
+		stbTuners = new ArrayList<Integer>();
 		for(int i = 0; i< intHeader.MAX_CLIENTS.value(); i++){
 			GatewayClientObj client = new GatewayClientObj();
 			client.setBusy(false);
 			clientList.add(client);
+			stbTuners.add(i);
 		}
 		GLog.d(TAG, "clientList size = "+clientList.size());
+		
 	}
 
 	@Override
@@ -49,10 +61,21 @@ public class GClientManager implements IGatewayClientManager {
 
 	@Override
 	public boolean addGatewayClient(String clientIp) {
-		GLog.d(TAG, "addGatewayClient");
+		GLog.d(TAG, "addGatewayClient ip = "+clientIp);
 		if(this.inspectClientIsConn(clientIp)){
 			this.setHeartFlagByIp(clientIp);
 			return true;
+		}
+		for(int i = 0; i< intHeader.MAX_CLIENTS.value(); i++){
+			GatewayClientObj client = new GatewayClientObj();
+			if(!client.isBusy()){
+				client.setIp(clientIp);
+				client.setHeartFlag(intHeader.HEART_BEAT_FLAG.value());		
+				client.setLiveStreaming(false);
+				client.setTunerIndex(stbTuners.get(i));
+				client.setBusy(true);
+				return true;
+			}
 		}
 		return false;
 	}
@@ -60,10 +83,11 @@ public class GClientManager implements IGatewayClientManager {
 	@Override
 	public boolean delGatewayClient(String clientIp) {
 		GLog.d(TAG, "delGatewayClient  clientIp = "+clientIp);
-		for(GatewayClientObj client : clientList){
+		for(int i = 0; i< intHeader.MAX_CLIENTS.value(); i++){
+			GatewayClientObj client = new GatewayClientObj();
 			if(client.getIp().equals(clientIp)){
 				if(client.isLiveStreaming()){
-					/**stop live streaming**/
+					/**stop live streaming here need add**/
 					client.setLiveStreaming(false);
 				}
 				client.setBusy(false);
@@ -88,7 +112,8 @@ public class GClientManager implements IGatewayClientManager {
 
 	@Override
 	public int getTunerIndexByIp(String ip) {
-		for(GatewayClientObj client : clientList){
+		for(int i = 0; i< intHeader.MAX_CLIENTS.value(); i++){
+			GatewayClientObj client = new GatewayClientObj();
 			if(client.getIp().equals(ip)){
 				return client.getTunerIndex();
 			}
@@ -98,7 +123,8 @@ public class GClientManager implements IGatewayClientManager {
 
 	@Override
 	public boolean inspectTunerIsBusyByIp(String ip) {
-		for(GatewayClientObj client : clientList){
+		for(int i = 0; i< intHeader.MAX_CLIENTS.value(); i++){
+			GatewayClientObj client = new GatewayClientObj();
 			if(client.isLiveStreaming()){
 				return true;
 			}
@@ -108,7 +134,8 @@ public class GClientManager implements IGatewayClientManager {
 
 	@Override
 	public boolean setLiveFlagByIp(String ip, boolean flag) {
-		for(GatewayClientObj client : clientList){
+		for(int i = 0; i< intHeader.MAX_CLIENTS.value(); i++){
+			GatewayClientObj client = new GatewayClientObj();
 			if(client.getIp().equals(ip)){
 				client.setLiveStreaming(flag);
 				return true;
@@ -119,7 +146,8 @@ public class GClientManager implements IGatewayClientManager {
 
 	@Override
 	public boolean setHeartFlagByIp(String ip) {
-		for(GatewayClientObj client : clientList){
+		for(int i = 0; i< intHeader.MAX_CLIENTS.value(); i++){
+			GatewayClientObj client = new GatewayClientObj();
 			if(client.getIp().equals(ip)){
 				client.setHeartFlag(intHeader.HEART_BEAT_FLAG.value());
 				return true;

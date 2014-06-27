@@ -30,7 +30,7 @@ public class BroadcastTask implements Runnable {
 					GLog.d(TAG, "intHeader.GATE_CMD_READ buf[0]==0x40");
 					if(buf[1] == intHeader.GATE_CMD_SEND_BROADCAST.value()){
 						GLog.d(TAG, "intHeader.GATE_CMD_SEND_BROADCAST == 0x01");
-						byte[] backData = BroadcastTask.backData();
+						byte[] backData = BroadcastTask.backBroadcastData();
 						DatagramSocket dst = new DatagramSocket();
 						DatagramPacket packet2 = 
 						new DatagramPacket(backData,backData.length,InetAddress.getByName(dp.getAddress().getHostAddress()),dp.getPort());
@@ -47,8 +47,8 @@ public class BroadcastTask implements Runnable {
 		}
 	}
 	
-	public static byte[] backData(){
-		String gatename = "T2";
+	public static byte[] backBroadcastData(){
+		String gatename = "泰信T2";
 		byte[] nameByte = gatename.getBytes();
 		byte[] backData = new byte[intHeader.GATE_MAX_STRING_NUM.value()];
 		backData[0] = (byte) intHeader.GATE_CMD_WRITE.value();
